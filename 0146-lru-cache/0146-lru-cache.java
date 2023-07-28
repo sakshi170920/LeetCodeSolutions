@@ -8,22 +8,17 @@ class LRUCache {
     }
     
     public int get(int key) {
-        //System.out.println("get key : "+key);
         if(map.containsKey(key))
         {
             Node n = map.get(key);
+            // tail is not pointing to curr key
             if(tail.key != key)
             {
                 n.delete();
                 tail.insert(n);
-
             }
-            // System.out.println(map);
-            // System.out.println("head - "+head.key+" tail - "+tail.key);
             return n.val;
         }
-        //System.out.println("head - "+head.key+" tail - "+tail.key);
-        //System.out.println(map);
         return -1;
     }
     
@@ -32,6 +27,7 @@ class LRUCache {
         {
             Node n = map.get(key);
             n.setVal(value);
+            // tail is not pointing to curr key
             if(tail.key != key)
             {
                 n.delete();
@@ -43,7 +39,7 @@ class LRUCache {
         {
             if(map.size() >= capacity)
             {
-                //remove an element
+                //remove head element (LRU)
                 map.remove(head.key);
                 head.delete();
             }
@@ -57,6 +53,7 @@ class LRUCache {
             {
                 tail = n;
             }
+            // tail is not pointing to curr key
             if(tail.key != key)
             {
                 n.delete();
@@ -64,10 +61,6 @@ class LRUCache {
             }
             map.put(key,n);           
         }
-        // System.out.println("push key : "+key);
-        // System.out.println("head - "+head.key+" tail - "+tail.key);
-        // System.out.println(map);
-
     }
 
     class Node{
@@ -98,6 +91,7 @@ class LRUCache {
             {
                 prev.next = next;
             }
+            //Its a head
             else
             {
                 head = next;
@@ -106,6 +100,7 @@ class LRUCache {
             {
                 next.prev = prev;
             }
+            //its a tail
             else
             {
                 tail = prev;
@@ -114,18 +109,6 @@ class LRUCache {
         void setVal(int val)
         {
             this.val = val;
-        }
-        @Override
-        public String toString()
-        {
-            String res = "$";
-            if(prev != null)
-                res+= "prev: "+prev.key;
-            res+= " - key:"+key+":val:"+val;
-            if(next != null)
-                res+= " - next: "+next.key;
-            res+="$";
-            return res;
         }
     }
 }
