@@ -1,4 +1,11 @@
 class LRUCache {
+    //initialze
+    // head -> tail
+    //add 1
+    // head -> 1:1 -> tail
+    // head -> next points to most recently used
+    // do for get/put insert at head
+    // least recently used is then at tail
     Node head = new Node(0,0);
     Node tail = new Node(0,0);
     int capacity;
@@ -8,20 +15,16 @@ class LRUCache {
         head.next = tail;
         tail.prev = head;     
     }
-    
     public int get(int key) {
         if(map.containsKey(key))
         {
             Node n = map.get(key);                       
             n.delete();
-            head.insert(n); 
-            // System.out.println(map+"head.n.key : "+head.next.key
-            // +" : tail.p.key "+tail.prev.key);   
+            head.insert(n);   
             return n.val;
         }
         return -1;
     }
-
     public void put(int key, int value) {
         if(map.containsKey(key))
         {
@@ -41,9 +44,7 @@ class LRUCache {
             //insert new element
             Node n = new Node(key,value);            
             head.insert(n);         
-            map.put(key,n);   
-            // System.out.println(map+"head.n.key : "+head.next.key
-            // +" : tail.p.key "+tail.prev.key);        
+            map.put(key,n);         
         }
     }
 
@@ -67,7 +68,7 @@ class LRUCache {
         void delete()
         {         
             prev.next = next;       
-            next.prev = prev;           
+            next.prev = prev;  
         }
         void setVal(int val)
         {
