@@ -13,13 +13,8 @@ class Solution {
             {
                 s.pop();
             }
-            if(i<len)
-            {
-                if(!s.isEmpty())
-                    result[i] = s.peek();
-                else
-                    result[i] = -1;
-            }           
+            if(!s.isEmpty())
+                result[i%len] = s.peek();                      
             s.push(nums[i%len]);
         }
         return result;
