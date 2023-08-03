@@ -17,9 +17,9 @@ class Solution {
         helper(temp+curr.charAt(j),arr,result,i+1,0);
         // not take
         // at last index no option of no take
-        if(j != curr.length()-1){
+        // if(j != curr.length()-1){
             helper(temp,arr,result,i,j+1);
-        }      
+        // }      
     }
     public List<String> letterCombinations(String digits) {
         List<String> result = new ArrayList();
@@ -57,7 +57,6 @@ class Solution {
             arr.add(res.toString());
             len = 3;
         }
-        System.out.println(arr);
         String temp = new String();
         helper(temp,arr,result,0,0);
         return result;
