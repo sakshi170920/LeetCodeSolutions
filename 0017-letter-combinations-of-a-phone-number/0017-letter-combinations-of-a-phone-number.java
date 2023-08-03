@@ -16,10 +16,7 @@ class Solution {
         //take
         helper(temp+curr.charAt(j),arr,result,i+1,0);
         // not take
-        // at last index no option of no take
-        // if(j != curr.length()-1){
-            helper(temp,arr,result,i,j+1);
-        // }      
+        helper(temp,arr,result,i,j+1);    
     }
     public List<String> letterCombinations(String digits) {
         List<String> result = new ArrayList();
