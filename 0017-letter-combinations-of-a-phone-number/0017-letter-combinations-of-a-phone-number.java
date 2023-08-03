@@ -49,12 +49,12 @@ class Solution {
             {
                 curr *= len;
             }
-            String res="";
+            StringBuilder res= new StringBuilder();
             for(int j = 0;j<len;j++)
             {
-                res+= (char)(curr+'a'+j);
+                res.append((char)(curr+'a'+j));
             }
-            arr.add(res);
+            arr.add(res.toString());
             len = 3;
         }
         System.out.println(arr);
