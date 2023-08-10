@@ -1,29 +1,44 @@
 class Solution {
-    public boolean isCycle(List<List<Integer>> graph,int src,
-    int[] visited)
+    //modifying bfs because its possible that someone at third level has dependency edge to 1st level
+    public List<Integer> topologicalSort(List<List<Integer>> graph)
     {
-        if(visited[src] == 1)
-            return true;
-        if(visited[src] == 2)
-            return false; 
-        List<Integer> neighbours = graph.get(src);
-        if(neighbours.isEmpty())
+        List<Integer> result = new ArrayList();
+        int n = graph.size();
+        //calculate indegrees
+        int[] indegree = new int[n];
+        for(List<Integer> node : graph)
         {
-            return false;
-        }
-        visited[src] = 1;
-        for(int i = 0;i<neighbours.size();i++)
-        {
-            if(isCycle(graph,neighbours.get(i),visited))
+            for(int j = 0;j<node.size();j++)
             {
-                return true;
+                indegree[node.get(j)]++;
             }
         }
-        visited[src] = 2;
-        return false;
+        Queue<Integer> q = new LinkedList();
+        for(int i = 0;i<n;i++)
+        {
+            if(indegree[i] == 0)
+            {
+                q.add(i);
+            }
+        }
+        while(!q.isEmpty())
+        {
+            int node = q.poll();
+            result.add(node);
+            for(Integer neighbour : graph.get(node))
+            {            
+                indegree[neighbour]--;
+                if(indegree[neighbour] == 0)
+                {
+                    q.add(neighbour);
+                }
+            }
+        }
+        return result;
     }
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         List<List<Integer>> graph = new ArrayList();
+        //create adj list
         for(int i = 0;i<numCourses;i++)
         {
             List<Integer> temp = new ArrayList();
@@ -33,23 +48,7 @@ class Solution {
         {
             graph.get(prerequisites[i][1]).add(prerequisites[i][0]);
         }
-        // 0 : unvisited
-        // 1 : visited - same path
-        // 2 : visited and already processed
-        int[] visited =new int[numCourses];
-        for(int i = 0;i<numCourses;i++)
-        {
-            visited[i] = 0;
-        }
-        System.out.println(graph);
-        for(int i = 0;i<numCourses;i++)
-        {
-            if(visited[i] == 0 && isCycle(graph,i,visited))
-            {
-                return false;
-            }
-            //System.out.println(Arrays.toString(visited));
-        }
-        return true;
+        List<Integer> result = topologicalSort(graph);
+        return result.size() == numCourses ? true : false;
     }
 }
