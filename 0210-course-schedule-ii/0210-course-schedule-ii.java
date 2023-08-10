@@ -40,8 +40,7 @@ class Solution {
         //create adj list
         for(int i = 0;i<numCourses;i++)
         {
-            List<Integer> temp = new ArrayList();
-            graph.add(temp);
+            graph.add(new ArrayList());
         }
         for(int i = 0;i<prerequisites.length;i++)
         {
