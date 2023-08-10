@@ -25,7 +25,7 @@ class Solution {
         {
             int node = q.poll();
             result.add(node);
-            for(Integer neighbour : graph.get(node))
+            for(int neighbour : graph.get(node))
             {            
                 indegree[neighbour]--;
                 if(indegree[neighbour] == 0)
