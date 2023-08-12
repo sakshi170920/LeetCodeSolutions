@@ -1,12 +1,15 @@
 class Solution {
-    public void dfs(int src,int ancestor,List<List<Integer>> graph,boolean[] visited,List<List<Integer>> result){
-        visited[src] = true;
+    public void dfs(int src,int ancestor,List<List<Integer>> graph,List<List<Integer>> result){
         for(Integer child : graph.get(src))
         {
-            if(!visited[child])
+            List<Integer> ancestors = result.get(child);
+            //we dont need visited array if in the given 
+            //traversal of finding all descendants of ancestor 
+            //if any child already has it , skip it
+            if(ancestors.isEmpty() || ancestors.get(ancestors.size()-1) != ancestor)
             {
                 result.get(child).add(ancestor);
-                dfs(child,ancestor,graph,visited,result);
+                dfs(child,ancestor,graph,result);
             }
         }
     }
@@ -24,12 +27,12 @@ class Solution {
         }
         for(int i = 0;i<n;i++)
         {
-            boolean[] visited = new boolean[n];
-            visited[i] = true;
-            //start with src = 0 and traverse all children of 0 and add it as ancesstor
+            //start with src = 0 and traverse all children of 0 and 
+            //add it as ancesstor
             // then start with 1 
-            // do it for all nodes 1 by 1 so order is maintained, however more traversals
-            dfs(i,i,graph,visited,result);
+            // do it for all nodes 1 by 1 so order is maintained, 
+            //however more traversals
+            dfs(i,i,graph,result);
             
         }
         return result;
