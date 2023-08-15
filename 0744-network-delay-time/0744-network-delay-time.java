@@ -7,34 +7,20 @@ class Solution {
         }
         dist[k-1] = 0;
         boolean[] visited = new boolean[n];
-        Queue<Integer> q = new LinkedList();
-        while(true){
-            int min=Integer.MAX_VALUE;
-            int min_ind=-1;
-            // find vertex with min dist from source
-            for(int i=0;i<n;i++){
-                if(!visited[i]){
-                    if(dist[i]<min){
-                        min = dist[i];
-                        min_ind = i; 
-                        System.out.println("found min "+(i+1));
-                    }
-                }
-            }
-            // cannot reach the source
-            if(min_ind == -1)
-            {
-                break;
-            }
-            q.add(min_ind);
-            visited[min_ind] = true;
-
+        PriorityQueue<Pair<Integer,Integer>> q = new 
+        PriorityQueue<Pair<Integer,Integer>>((a,b)->a.getKey()-b.getKey());
+        q.add(new Pair(0,k-1));
+        while(!q.isEmpty()){
+            // gives vertex with min dist from source
+            int u = q.poll().getValue();  
+            visited[u] = true;
             //update dist of neighbours of curr index
-            for(Pair<Integer,Integer> neighbour : graph.get(min_ind)){
+            for(Pair<Integer,Integer> neighbour : graph.get(u)){
                 int v = neighbour.getKey();
                 int w = neighbour.getValue();
-                if(dist[v]>dist[min_ind]+w){
-                    dist[v] = dist[min_ind]+w;
+                if(dist[v]>dist[u]+w){
+                    dist[v] = dist[u]+w;
+                    q.add(new Pair(dist[v],v));
                 }
             }
         }
