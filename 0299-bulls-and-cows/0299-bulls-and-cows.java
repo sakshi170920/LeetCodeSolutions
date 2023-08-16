@@ -1,30 +1,24 @@
 class Solution {
     public String getHint(String secret, String guess) {
-        HashMap<Character,Integer> map = new HashMap();
+        int[] map = new int[10];
         int bulls = 0;
         int cows = 0;
-        boolean[] visited = new boolean[secret.length()];
         for(int i = 0;i<secret.length();i++){
-            if(secret.charAt(i) == guess.charAt(i)){
+            int s = secret.charAt(i) - '0';
+            int g = guess.charAt(i) - '0';
+            if(s == g){
                 bulls++;
-                visited[i] = true;
             }
             else{
-                map.put(secret.charAt(i),map.getOrDefault(secret.charAt(i),0)+1);
-            }
-        }
-        for(int i = 0;i<secret.length();i++){
-            if(!visited[i]){
-                if(map.containsKey(guess.charAt(i))){
+                if(map[g]>0){
                     cows++;
-                    int count = map.get(guess.charAt(i));
-                    if(count == 1){
-                        map.remove(guess.charAt(i));
-                    }else{
-                        map.put(guess.charAt(i),count-1);
-                    }
                 }
-            }
+                if(map[s]<0){
+                    cows++;
+                }
+                map[s]++;
+                map[g]--;
+            }     
         }
         return new StringBuilder().append(bulls)
         .append('A').append(cows).append('B').toString();
