@@ -26,6 +26,7 @@ class Solution {
                 }
             }
         }
-        return ""+bulls+"A"+cows+"B";
+        return new StringBuilder().append(bulls)
+        .append('A').append(cows).append('B').toString();
     }
 }
