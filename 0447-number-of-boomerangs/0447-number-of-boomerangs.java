@@ -11,36 +11,20 @@ class Solution {
         return x*fact(x-1);
     }
     public int numberOfBoomerangs(int[][] points) {
+        int result = 0;
         int n = points.length;
         int[][] graph = new int[n][n];
         for(int i = 0;i<points.length;i++){
-            for(int j = i+1;j<points.length;j++){         
+            HashMap<Integer,Integer> map = new HashMap();
+            for(int j = 0;j<points.length;j++){         
                 int dist = distance(points[i],points[j]);         
-                graph[i][j] = dist;
-                graph[j][i] = dist;          
+                map.put(dist,map.getOrDefault(dist,0)+1);     
             }
-        }
-        int result = 0;
-        for(int i = 0;i<points.length;i++){
-            HashMap<Integer,List<Integer>> map = new HashMap();
-             for(int j = 0;j<points.length;j++){         
-                if(i!=j){
-                    if(map.containsKey(graph[i][j])){
-                        map.get(graph[i][j]).add(j);
-                    }
-                    else{
-                        List<Integer> arr = new ArrayList();
-                        arr.add(j);
-                        map.put(graph[i][j],arr);
-                    }
-                }
+            for(Integer count : map.values()){
+                if(count>=2)
+                    result+= count*(count-1);
             }
-            //System.out.println(map);
-            for(List<Integer> arr : map.values()){
-                if(arr.size()>=2)
-                    result+= permutations(arr.size());
-            }
-        }
+        }                   
         return result;
     }
 }
