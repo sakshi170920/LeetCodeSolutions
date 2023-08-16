@@ -2,14 +2,6 @@ class Solution {
     public int distance(int[] x,int[] y){
         return (x[0]-y[0])*(x[0]-y[0]) + (x[1]-y[1])*(x[1]-y[1]);
     }
-    public int permutations(int x){
-        return fact(x)/fact(x-2);
-    }
-    public int fact(int x){
-        if(x<=1)
-            return 1;
-        return x*fact(x-1);
-    }
     public int numberOfBoomerangs(int[][] points) {
         int result = 0;
         int n = points.length;
