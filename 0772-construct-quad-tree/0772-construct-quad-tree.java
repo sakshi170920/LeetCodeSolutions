@@ -52,8 +52,7 @@ class Solution {
     }
     public Node f(Range row,Range col,int[][] grid){
         if(row.x == row.y && col.x == col.y)
-            return new Node(grid[row.x][col.x] == 1 ? true : false,true);
-        //System.out.println(row+" : "+col);    
+            return new Node(grid[row.x][col.x] == 1,true);
         Node root = new Node(true,false);
         int rowMid = mid(row);
         int colMid = mid(col);
@@ -71,8 +70,7 @@ class Solution {
         && root.bottomLeft.isLeaf && root.bottomRight.isLeaf && 
         isEqual(arr))
         {
-            //System.out.println("found leaf : "+row+" : "+col);    
-            return new Node(grid[row.x][col.x] == 1 ? true : false,true);
+            return new Node(grid[row.x][col.x] == 1,true);
         }
         return root;
     }
@@ -86,10 +84,6 @@ class Solution {
         Range(int x, int y){
             this.x = x;
             this.y = y;
-        }
-        @Override 
-        public String toString(){
-            return "{"+x+"-"+y+"}";
         }
     }
 }
