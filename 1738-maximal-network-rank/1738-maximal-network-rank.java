@@ -1,56 +1,22 @@
 class Solution {
     public int maximalNetworkRank(int n, int[][] roads) {
-        List<Set<Integer>> adj = new ArrayList<>();
-        int[] indegree = new int[n];
-        
-        for (int i = 0; i < n; i++) {
-            adj.add(new HashSet<>());
-        }
-        
-        for (int[] edge : roads) {
-            int v = edge[0], w = edge[1];
-            indegree[v]++;
-            indegree[w]++;
-            adj.get(v).add(w);
-            adj.get(w).add(v);
-        }
-        
-        int maxdegree = 0;
-        for (int i = 0; i < n; i++) {
-            maxdegree = Math.max(maxdegree, indegree[i]);
-        }
-        
-        List<Integer> maxindex = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            if (indegree[i] == maxdegree) {
-                maxindex.add(i);
+       List<Set<Integer>> graph = new ArrayList();
+       for(int i = 0;i<n;i++){
+           graph.add(new HashSet());
+       }
+       for(int[] road : roads){
+           graph.get(road[0]).add(road[1]);
+            graph.get(road[1]).add(road[0]);
+       } 
+       int result = Integer.MIN_VALUE;
+       for(int i = 0;i<n;i++){
+            for(int j = i+1;j<n;j++){
+                int res = graph.get(i).size()+graph.get(j).size();
+                if(graph.get(i).contains(j))
+                    res--;
+                result = Math.max(result,res);
             }
-        }
-        
-        int samemaxdegree = maxindex.size();
-        if (samemaxdegree > 1) {
-            for (int i = 1; i < samemaxdegree; i++) {
-                for (int j = 0; j < i; j++) {
-                    if (!adj.get(maxindex.get(i)).contains(maxindex.get(j))) {
-                        System.out.println(maxindex.get(i) + " " + maxindex.get(j));
-                        return 2 * maxdegree;
-                    }
-                }
-            }
-            return 2 * maxdegree - 1;
-        }
-        
-        int mxid = maxindex.get(0);
-        int max_rank = 0;
-        for (int j = 0; j < n; j++) {
-            if (j == mxid) {
-                continue;
-            }
-            int rank = maxdegree + indegree[j] - (adj.get(mxid).contains(j) ? 1 : 0);
-            max_rank = Math.max(max_rank, rank);
-            System.out.println(mxid);
-        }
-        
-        return max_rank;
+       }
+       return result;
     }
 }
