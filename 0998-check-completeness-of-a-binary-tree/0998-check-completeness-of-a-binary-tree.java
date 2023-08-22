@@ -19,25 +19,14 @@ class Solution {
         q.add(root);
         boolean flag = false;
         while(!q.isEmpty()){
-            int size = q.size();
-            for(int i = 0;i<size;i++){
-                TreeNode curr = q.poll();
-                if(curr.left!=null){
-                    if(flag)
-                        return false;
-                    q.add(curr.left);
-                }else{
-                    flag = true;
-                }
-
-                if(curr.right!=null){
-                    if(flag)
-                        return false;
-                    q.add(curr.right);
-                }else{
-                    flag = true;
-                }                              
-            }
+            TreeNode curr = q.poll();
+            if(curr == null){
+                flag = true;
+            }else{
+                if(flag) return false;
+                q.add(curr.left);
+                q.add(curr.right);
+            }                                     
         }
         return true;
     }
