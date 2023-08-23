@@ -5,17 +5,23 @@ class Solution {
         for(int i = 0;i<nums.length;i++){
            for(int j = i+1;j<nums.length;j++){
             long currSum = (long)target-(long)nums[i]-(long)nums[j];
-            HashMap<Long,Integer> map = new HashMap();   
-            for(int k = j+1;k<nums.length;k++){
-                if(map.containsKey(Long.valueOf(nums[k]))){ 
+            int k = j+1;
+            int l = nums.length-1;
+            while(k<l){
+                if((long)nums[k] + (long)nums[l] == currSum){
                     List<Integer> temp = new ArrayList();
                     temp.add(nums[i]);
                     temp.add(nums[j]);
                     temp.add(nums[k]);
-                    temp.add(nums[map.get(Long.valueOf(nums[k]))]); 
+                    temp.add(nums[l]); 
                     res.add(temp);
-                }else{
-                    map.put(Long.valueOf(currSum-nums[k]),k);
+                    k++;
+                    l--;
+                }else if(nums[k] + nums[l] < currSum){
+                    k++;
+                }
+                else{
+                    l--;
                 }
             }
           } 
