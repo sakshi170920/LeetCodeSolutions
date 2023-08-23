@@ -13,7 +13,6 @@ class Solution {
                     temp.add(nums[j]);
                     temp.add(nums[k]);
                     temp.add(nums[map.get(Long.valueOf(nums[k]))]); 
-                    System.out.println(temp);
                     res.add(temp);
                 }else{
                     map.put(Long.valueOf(currSum-nums[k]),k);
