@@ -9,6 +9,7 @@ class Solution {
                 for(int j = 0;j<word.length();j++){
                     res[i++] = word.charAt(j);
                 }
+                //add space
                 i++;
             }
         }
@@ -32,7 +33,10 @@ class Solution {
                 }
                 k+=spaces;
             }
-        }
+        }      
+        return toString(res);
+    }
+    public String toString(char[] res){
         StringBuilder temp = new StringBuilder();
         for(char c : res){
             temp.append(c);
@@ -45,6 +49,7 @@ class Solution {
         List<String> temp = new ArrayList();
         for(int i = 0;i<words.length;i++){
             String word = words[i];
+            // no space for first word
             int flag = temp.isEmpty() ? 0 : 1;
             if(count+word.length()+flag<=maxWidth){
                 temp.add(word);
