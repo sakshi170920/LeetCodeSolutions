@@ -1,6 +1,5 @@
 class Solution {
     public String justify(List<String> words,int width,boolean isLeft){
-        System.out.println(words);
         char[] res = new char[width];
         Arrays.fill(res,' ');
         //left justify
@@ -20,7 +19,6 @@ class Solution {
             }
             int spaces = (width-sum)/(words.size()-1);
             int needsExtraSpace = (width-sum)%(words.size()-1);
-            System.out.println(spaces+" "+needsExtraSpace);
             int k = 0;
             int m = 0;
             // add extra space
