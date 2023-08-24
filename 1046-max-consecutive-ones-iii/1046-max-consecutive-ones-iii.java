@@ -12,11 +12,8 @@ class Solution {
             }
             right++;
             //invalid
-            if(count > k){              
-               while(count>k){
-                   if(nums[left++] == 0)
-                    count--; 
-               }
+            if(count > k && nums[left++] == 0){              
+                count--;            
             }
         }
         return Math.max(result,right-left);
