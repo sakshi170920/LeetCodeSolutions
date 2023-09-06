@@ -31,10 +31,8 @@ class Solution {
             res[i] = temp;
             if(temp == null){
                 continue;
-            }
-            int currBatch = batch;
-            if(rem-->0)
-                currBatch++;
+            } 
+            int currBatch = batch + (rem-->0 ? 1 : 0);
             for(int j = 0;j<currBatch;j++){
                 head = temp;
                 temp = temp.next;
