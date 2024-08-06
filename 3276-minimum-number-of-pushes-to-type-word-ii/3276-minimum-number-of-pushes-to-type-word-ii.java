@@ -1,29 +1,18 @@
 class Solution {
     int C = 26;
     public int minimumPushes(String word) {
-        Integer[] freq = new Integer[C];
-        for(int i = 0;i<C;i++){
-            freq[i] = 0;
-        }
+        int[] freq = new int[C];
         for(int i = 0;i<word.length();i++){
-            char c = word.charAt(i);
-            freq[c-'a']++;
+            freq[word.charAt(i)-'a']++;
         }
 
-        Arrays.sort(freq, Collections.reverseOrder());
+        Arrays.sort(freq);
 
         int N = 8;
         int result = 0;
         int count = 1;
-        for(int i = 0;i<C;i++){
-            if(freq[i] == 0)
-                break;
-            result += freq[i]*count;
-            N--;
-            if(N == 0){
-                N = 8;
-                count++;
-            }
+        for(int i = 0;i<C;i++){ 
+            result += freq[C-i-1]*(i/8+1);
         }
         return result;       
     }
